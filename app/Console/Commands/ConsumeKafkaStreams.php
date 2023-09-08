@@ -38,7 +38,7 @@ class ConsumeKafkaStreams extends Command
     public function handle()
     {
         $conf = new \RdKafka\Conf();
-        $conf->set('metadata.broker.list', 'localhost:9092');
+        $conf->set('metadata.broker.list', config('kafka.broker'));
         $conf->set('group.id', 'orderGroup');
         $conf->set('auto.offset.reset', 'earliest');
         $conf->set('enable.auto.commit', 'false');

@@ -36,11 +36,11 @@ class ProduceKafkaStreams extends Command
     public function handle()
     {
         $conf = new \RdKafka\Conf();
-        $conf->set('bootstrap.servers', 'localhost:9092');
-        $conf->set('metadata.broker.list', 'localhost:9092');
+        $conf->set('bootstrap.servers', config('kafka.broker'));
+        $conf->set('metadata.broker.list', config('kafka.broker'));
 
         $producer = new \RdKafka\Producer($conf);
-        $producer->addBrokers("localhost:9092");
+        $producer->addBrokers(config('kafka.broker'));
 
         $this->produceNewOrders($producer);
 

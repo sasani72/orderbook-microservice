@@ -17,11 +17,11 @@ class OrderBookService
 
     public function updateRedisOrderBook($order)
     {
-        $symbol = $order->symbol;
-        $price = $order->price;
-        $quantity = $order->quantity;
+        $symbol = $order['symbol'];
+        $price = $order['price'];
+        $quantity = $order['quantity'];
 
-        if ($order->side === 'buy') {
+        if ($order['side'] === 'buy') {
             $this->updateRedisBuyOrderBook($symbol, $price, $quantity);
         } else {
             $this->updateRedisSellOrderBook($symbol, $price, $quantity);
@@ -157,17 +157,17 @@ class OrderBookService
 
     public function cancelOrder($order)
     {
-        $this->orderRepository->delete($order->order_id);
+        $this->orderRepository->delete($order['order_id']);
         $this->removeOrderFromRedis($order);
     }
 
     private function removeOrderFromRedis($order)
     {
-        $symbol = $order->symbol;
-        $price = $order->price;
-        $quantity = $order->quantity;
+        $symbol = $order['symbol'];
+        $price = $order['price'];
+        $quantity = $order['quantity'];
 
-        $key = ($order->side === 'buy') ? "buy_orders_$symbol" : "sell_orders_$symbol";
+        $key = ($order['side'] === 'buy') ? "buy_orders_$symbol" : "sell_orders_$symbol";
         // Check if the price exists in the sorted set
         $existingPriceQuantity = Redis::zscore($key, $price);
 

@@ -16,8 +16,8 @@ return new class extends Migration
             $table->bigInteger('order_id')->unique();
             $table->string('symbol');
             $table->enum('side', ['buy', 'sell']);
-            $table->decimal('price', 10, 6);
-            $table->decimal('quantity', 10, 6);
+            $table->decimal('price', 16, 10);
+            $table->decimal('quantity', 16, 10);
             $table->timestamps();
         });
     }

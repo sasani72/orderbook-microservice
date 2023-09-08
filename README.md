@@ -41,14 +41,14 @@ This project is built with Laravel Framework 10.
     exit
     ```
 
-6. Ruuning Kafka producer command to produce data streams
+6. Running Kafka producer command to produce data streams
 
     ```bash
-        docker compose exec app bash
-        php artisan kafka:prodice-order
+    docker compose exec app bash
+    php artisan kafka:produce-order
     ```
 
-7. Ruuning Kafka consumer command to consume data streams
+7. Running Kafka consumer command to consume data streams
 
     ```bash
     php artisan kafka:consume-order

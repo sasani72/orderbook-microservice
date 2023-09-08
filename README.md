@@ -1,4 +1,5 @@
-A simple orderbook API microservice to use for crypro exchange market using Laravel.
+## A simple orderbook API microservice to use in crypro exchange market using Laravel.
+
 The algorithm used for storing and retrieving bids and asks in this microservice is based on Redis Sorted Sets. Redis Sorted Sets allow you to store prices along with their associated quantities. The scores(prices) are used to keep the elements(quantities) sorted.
 
 Storing and retrieving orders with this algorithm has a time complexity of O(log(N)).

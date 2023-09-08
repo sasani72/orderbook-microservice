@@ -47,7 +47,7 @@ class ConsumeKafkaStreams extends Command
 
         $consumer->subscribe(['new-order', 'cancel-order']);
 
-        echo "Waiting for partition assignment... (make take some time when\n";
+        echo "Waiting for partition assignment... (may take some time when\n";
         echo "quickly re-joining the group after leaving it.)\n";
 
         while (true) {

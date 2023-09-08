@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('order_book', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('order_id')->unique();
+            $table->bigInteger('order_id');
             $table->string('symbol');
             $table->enum('side', ['buy', 'sell']);
             $table->decimal('price', 16, 10);

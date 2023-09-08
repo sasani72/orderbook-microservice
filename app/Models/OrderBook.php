@@ -11,5 +11,5 @@ class OrderBook extends Model
 
     protected $table = 'order_book';
 
-    protected $fillable = ['order_id', 'symbol', 'price', 'quantity', 'timestamp'];
+    protected $fillable = ['order_id', 'symbol', 'side', 'price', 'quantity', 'timestamp'];
 }

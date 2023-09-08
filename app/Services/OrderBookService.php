@@ -7,7 +7,7 @@ use App\Repositories\OrderRepository;
 
 class OrderBookService
 {
-    private $maxOrderBookDepth = 5000;
+    private $maxOrderBookDepth = 5000 * 2; // because of score and member pairs
     private $orderRepository;
 
     public function __construct(OrderRepository $orderRepository)
@@ -75,9 +75,7 @@ class OrderBookService
             $lowestScores = Redis::zrevrange($key, 0, $recordsToRemove - 1);
 
             // Remove the records with the lowest scores
-            foreach ($lowestScores as $score) {
-                Redis::zrem($key, $score);
-            }
+            Redis::zrem($key, ...$lowestScores);
         }
     }
 
@@ -92,14 +90,13 @@ class OrderBookService
             $highestScores = Redis::zrange($key, 0, $recordsToRemove - 1);
 
             // Remove the records with the highest scores
-            foreach ($highestScores as $score) {
-                Redis::zrem($key, $score);
-            }
+            Redis::zrem($key, ...$highestScores);
         }
     }
 
     public function getOrderBook($symbol, $depth)
     {
+        $depth = $depth * 2;
         $buyOrders = $this->getTopBuyOrders($symbol, $depth);
         $sellOrders = $this->getTopSellOrders($symbol, $depth);
 
@@ -119,8 +116,8 @@ class OrderBookService
         $buys = [];
 
         for ($i = 0; $i < count($data); $i += 2) {
-            $price = (float)$data[$i];
-            $quantity = (float)$data[$i + 1];
+            $price = $data[$i];
+            $quantity = $data[$i + 1];
             $buys[] = [$price, $quantity];
         }
 
@@ -136,8 +133,8 @@ class OrderBookService
         $sells = [];
 
         for ($i = 0; $i < count($data); $i += 2) {
-            $price = (float)$data[$i];
-            $quantity = (float)$data[$i + 1];
+            $price = $data[$i];
+            $quantity = $data[$i + 1];
             $sells[] = [$price, $quantity];
         }
 

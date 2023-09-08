@@ -41,7 +41,7 @@ class OrderRepository
 
     public function getLastUpdateId()
     {
-        return OrderBook::latest()->first()->created_at->timestamp();
+        return OrderBook::latest()->first()->created_at->now()->timestamp;
     }
 
     /**
